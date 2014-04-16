@@ -5,8 +5,8 @@ import android.os.Bundle;
 
 public abstract class SocialObject {
 
-    protected static final String ACCESS_TOKEN = "access_token";
-    protected static final String ERROR_CONST = "error";
+    public static final String ACCESS_TOKEN = "access_token";
+    public static final String ERROR_CONST = "error";
 
     protected SocialCallback mSocialCallback;
 
@@ -29,6 +29,6 @@ public abstract class SocialObject {
     public interface SocialCallback {
         void isSucceed(Bundle pUserBundle);
 
-        void isFailed();
+        void isFailed(Bundle pErrorBundle);
     }
 }

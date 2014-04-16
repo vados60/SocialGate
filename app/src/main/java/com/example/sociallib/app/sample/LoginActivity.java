@@ -10,7 +10,6 @@ import android.webkit.WebViewClient;
 
 import com.example.sociallib.app.R;
 import com.example.sociallib.app.model.SocialObject;
-import com.example.sociallib.app.utils.SocialConst;
 
 
 public class LoginActivity extends Activity {
@@ -28,7 +27,7 @@ public class LoginActivity extends Activity {
         mWebView = (WebView) findViewById(R.id.social_login_web_view);
 
         mWebView.setWebViewClient(new WebViewClientCallback());
-        mSocialObject = SocialFactory.getSocialObject((SocialType) getIntent().getExtras().getSerializable(SocialConst.TYPE), new CallbackReceiver());
+        mSocialObject = SocialFactory.getSocialObject((SocialType) getIntent().getExtras().getSerializable(SocialUtils.TYPE), new CallbackReceiver());
         mWebView.loadUrl(mSocialObject.getUrl());
 
     }
@@ -55,11 +54,12 @@ public class LoginActivity extends Activity {
 
         @Override
         public void isSucceed(Bundle pUserBundle) {
-            Log.e("ACCESS_TOKEN", pUserBundle.getString(SocialConst.ACCESS_TOKEN));
+            Log.e("ACCESS_TOKEN", pUserBundle.getString(SocialObject.ACCESS_TOKEN));
         }
 
         @Override
-        public void isFailed() {
+        public void isFailed(Bundle pErrorBundle) {
+            Log.e("ERROR", pErrorBundle.getString(SocialObject.ERROR_CONST));
 
         }
     }

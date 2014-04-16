@@ -2,7 +2,6 @@ package com.example.sociallib.app.model;
 
 import android.os.Bundle;
 
-import com.example.sociallib.app.utils.SocialConst;
 
 public class InstagramSocialObject extends SocialObject {
 
@@ -23,12 +22,14 @@ public class InstagramSocialObject extends SocialObject {
     @Override
     public Boolean isParseResponseSuccess(String response) {
         if (response.contains(ACCESS_TOKEN) && (!response.contains(ERROR_CONST))) {
-//            setToken(response);
             Bundle b = new Bundle();
             b.putString(ACCESS_TOKEN, response);
             mSocialCallback.isSucceed(b);
             return true;
         } else {
+            Bundle errorBundle = new Bundle();
+            errorBundle.putString(ERROR_CONST, response);
+            mSocialCallback.isFailed(errorBundle);
             return false;
         }
     }

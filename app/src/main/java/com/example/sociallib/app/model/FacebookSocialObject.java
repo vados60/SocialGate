@@ -28,6 +28,9 @@ public class FacebookSocialObject extends SocialObject {
             mSocialCallback.isSucceed(fbBundle);
             return true;
         } else {
+            Bundle errorBundle = new Bundle();
+            errorBundle.putString(ERROR_CONST, response);
+            mSocialCallback.isFailed(errorBundle);
             return false;
         }
     }

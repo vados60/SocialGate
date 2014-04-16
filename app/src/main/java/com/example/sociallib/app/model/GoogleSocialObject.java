@@ -30,6 +30,9 @@ public class GoogleSocialObject extends SocialObject {
             mSocialCallback.isSucceed(googleBundle);
             return true;
         } else {
+            Bundle errorBundle = new Bundle();
+            errorBundle.putString(ERROR_CONST, response);
+            mSocialCallback.isFailed(errorBundle);
             return false;
         }
     }

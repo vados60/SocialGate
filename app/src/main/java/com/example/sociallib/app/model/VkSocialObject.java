@@ -23,6 +23,9 @@ public class VkSocialObject extends SocialObject {
             mSocialCallback.isSucceed(vkBundle);
             return true;
         } else {
+            Bundle errorBundle = new Bundle();
+            errorBundle.putString(ERROR_CONST, response);
+            mSocialCallback.isFailed(errorBundle);
             return false;
         }
     }

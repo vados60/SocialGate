@@ -5,7 +5,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.example.sociallib.app.utils.SocialConst;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -16,7 +15,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.concurrent.Executors;
 
 public class LinkedinSocialObject extends SocialObject {
 
@@ -81,6 +79,10 @@ public class LinkedinSocialObject extends SocialObject {
                             linkedInBundle.putString(ACCESS_TOKEN, accessToken);
                             mSocialCallback.isSucceed(linkedInBundle);
                         }
+                    }else{
+                        Bundle errorBundle = new Bundle();
+                        errorBundle.putString(ERROR_CONST, EntityUtils.toString(response.getEntity()));
+                        mSocialCallback.isFailed(errorBundle);
                     }
                 } catch (IOException e) {
                     Log.e("Authorize", "Error Http response " + e.getLocalizedMessage());
