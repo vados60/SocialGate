@@ -42,5 +42,10 @@ public class GoogleSocialObject extends SocialObject {
         return "https://accounts.google.com/o/oauth2/auth?client_id=" + mClientId + "&response_type=token&scope=email&redirect_uri=" + mRedirectUri + "&login_hint=jsmith@example.com";
     }
 
+    @Override
+    public SocialUser getUser() {
+        return null;
+    }
+
 
 }

@@ -26,6 +26,8 @@ public abstract class SocialObject {
      */
     public abstract String getUrl();
 
+    public abstract SocialUser getUser();
+
     public interface SocialCallback {
         void isSucceed(Bundle pUserBundle);
 

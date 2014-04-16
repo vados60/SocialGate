@@ -35,4 +35,9 @@ public class VkSocialObject extends SocialObject {
         return "https://oauth.vk.com/authorize?client_id=" + mClientId + "&redirect_uri=" + mRedirectUri + "&scope=" + mScope + "&display=mobile&v=5.5&response_type=token";
     }
 
+    @Override
+    public SocialUser getUser() {
+        return null;
+    }
+
 }

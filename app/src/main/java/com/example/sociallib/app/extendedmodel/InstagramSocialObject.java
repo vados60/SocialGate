@@ -39,4 +39,9 @@ public class InstagramSocialObject extends SocialObject {
         return "https://api.instagram.com/oauth/authorize/?client_id=" + mClientId + "&redirect_uri=" + mRedirectUri + "&response_type=token";
     }
 
-   }
+    @Override
+    public SocialUser getUser() {
+        return null;
+    }
+
+}

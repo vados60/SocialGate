@@ -41,4 +41,9 @@ public class FacebookSocialObject extends SocialObject {
         return "https://m.facebook.com/dialog/oauth/?client_id=" + mClientId + "&redirect_uri=" + mRedirectUri + "&response_type=token&scope=publish_stream&display=wap";
     }
 
+    @Override
+    public SocialUser getUser() {
+        return null;
+    }
+
 }
