@@ -35,7 +35,6 @@ public class GoogleSocialObject extends SocialObject {
 
     @Override
     public Boolean isParseResponseSuccess(String response) {
-        Log.d("googleplus", response);
 
         if (response.contains(ACCESS_TOKEN) && (!response.contains(ERROR_CONST))) {
             String [] result = response.split("[=&]+");

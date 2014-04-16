@@ -57,16 +57,16 @@ public class LoginActivity extends Activity {
         public void isSucceed(Bundle pUserBundle) {
 //            Log.e("ACCESS_TOKEN", pUserBundle.getString(SocialObject.ACCESS_TOKEN));
             Intent intent = new Intent();
-            intent.putExtra(SocialObject.ACCESS_TOKEN, pUserBundle.getString(SocialObject.ACCESS_TOKEN));
+            intent.putExtra(SocialObject.ACCESS_TOKEN, pUserBundle);
             setResult(RESULT_OK, intent);
             finish();
         }
 
         @Override
         public void isFailed(Bundle pErrorBundle) {
-            Log.e("ERROR", pErrorBundle.getString(SocialObject.ERROR_CONST));
+//            Log.e("ERROR", pErrorBundle.getString(SocialObject.ERROR_CONST));
             Intent intent = new Intent();
-            intent.putExtra(SocialObject.ERROR_CONST, pErrorBundle.getString(SocialObject.ERROR_CONST));
+            intent.putExtra(SocialObject.ERROR_CONST, pErrorBundle);
             setResult(RESULT_CANCELED, intent);
             finish();
 

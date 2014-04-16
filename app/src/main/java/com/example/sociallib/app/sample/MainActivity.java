@@ -39,9 +39,9 @@ public class MainActivity extends Activity {
         }
 
         if (resultCode == RESULT_OK) {
-            Log.e(SocialObject.ACCESS_TOKEN, data.getStringExtra(SocialObject.ACCESS_TOKEN));
+            Log.e(SocialObject.ACCESS_TOKEN, data.getExtras().getBundle(SocialObject.ACCESS_TOKEN).getString(SocialObject.ACCESS_TOKEN));
         } else {
-            Log.e(SocialObject.ERROR_CONST, data.getStringExtra(SocialObject.ERROR_CONST));
+            Log.e(SocialObject.ERROR_CONST, data.getExtras().getBundle(SocialObject.ERROR_CONST).getString(SocialObject.ERROR_CONST));
         }
     }
 
