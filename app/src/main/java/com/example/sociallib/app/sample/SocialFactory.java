@@ -1,11 +1,11 @@
 package com.example.sociallib.app.sample;
 
-import com.example.sociallib.app.model.FacebookSocialObject;
-import com.example.sociallib.app.model.GoogleSocialObject;
-import com.example.sociallib.app.model.InstagramSocialObject;
-import com.example.sociallib.app.model.LinkedinSocialObject;
-import com.example.sociallib.app.model.SocialObject;
-import com.example.sociallib.app.model.VkSocialObject;
+import com.example.sociallib.app.extendedmodel.FacebookSocialObject;
+import com.example.sociallib.app.extendedmodel.GoogleSocialObject;
+import com.example.sociallib.app.extendedmodel.InstagramSocialObject;
+import com.example.sociallib.app.extendedmodel.LinkedinSocialObject;
+import com.example.sociallib.app.extendedmodel.SocialObject;
+import com.example.sociallib.app.extendedmodel.VkSocialObject;
 
 
 public class SocialFactory {
@@ -15,7 +15,7 @@ public class SocialFactory {
      *
      * @param pSocialType Type of required Social Network (enum)
      * @return specific SocialObject
-     * @see com.example.sociallib.app.model.SocialObject
+     * @see com.example.sociallib.app.extendedmodel.SocialObject
      */
 
     public static SocialObject getSocialObject(SocialType pSocialType, SocialObject.SocialCallback pSocialCallback) {

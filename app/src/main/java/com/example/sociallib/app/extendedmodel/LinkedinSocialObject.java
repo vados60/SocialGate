@@ -1,4 +1,4 @@
-package com.example.sociallib.app.model;
+package com.example.sociallib.app.extendedmodel;
 
 import android.net.ParseException;
 import android.net.Uri;

@@ -1,7 +1,6 @@
 package com.example.sociallib.app.sample;
 
 import android.app.Activity;
-import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,7 +8,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.example.sociallib.app.R;
-import com.example.sociallib.app.model.SocialObject;
+import com.example.sociallib.app.extendedmodel.SocialObject;
 
 
 public class LoginActivity extends Activity {

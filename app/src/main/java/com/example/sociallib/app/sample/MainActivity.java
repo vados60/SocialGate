@@ -10,6 +10,8 @@ import com.example.sociallib.app.R;
 
 public class MainActivity extends Activity {
 
+    private final int LOGIN_ACTIVITY_KEY = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +63,7 @@ public class MainActivity extends Activity {
 
             }
             Intent intent = SocialUtils.loginSocial(getApplicationContext(), socialType);
-            startActivityForResult(intent, 1);
+            startActivityForResult(intent, LOGIN_ACTIVITY_KEY);
         }
     }
 }

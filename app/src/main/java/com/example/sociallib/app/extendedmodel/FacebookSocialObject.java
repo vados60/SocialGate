@@ -1,33 +1,31 @@
-package com.example.sociallib.app.model;
-
+package com.example.sociallib.app.extendedmodel;
 
 import android.os.Bundle;
 
-
-public class GoogleSocialObject extends SocialObject {
+public class FacebookSocialObject extends SocialObject {
 
     private String mClientId;
     private String mRedirectUri;
+    private SocialCallback mSocialCallback;
 
     /**
      * @param pSocialCallback Callback object. SocialCallback interface should be implemented.
-     * @param pClientId    Google application ID
+     * @param pClientId    Facebook application ID
      * @param pRedirectUri Redirect URL
      */
-
-    public GoogleSocialObject(SocialCallback pSocialCallback, String pClientId, String pRedirectUri) {
+    public FacebookSocialObject(SocialCallback pSocialCallback, String pClientId, String pRedirectUri) {
         mSocialCallback = pSocialCallback;
         mClientId = pClientId;
         mRedirectUri = pRedirectUri;
     }
 
+
     @Override
     public Boolean isParseResponseSuccess(String response) {
-
         if (response.contains(ACCESS_TOKEN) && (!response.contains(ERROR_CONST))) {
-            Bundle googleBundle = new Bundle();
-            googleBundle.putString(ACCESS_TOKEN, response);
-            mSocialCallback.isSucceed(googleBundle);
+            Bundle fbBundle = new Bundle();
+            fbBundle.putString(ACCESS_TOKEN, response);
+            mSocialCallback.isSucceed(fbBundle);
             return true;
         } else {
             Bundle errorBundle = new Bundle();
@@ -39,8 +37,8 @@ public class GoogleSocialObject extends SocialObject {
 
     @Override
     public String getUrl() {
-        return "https://accounts.google.com/o/oauth2/auth?client_id=" + mClientId + "&response_type=token&scope=email&redirect_uri=" + mRedirectUri + "&login_hint=jsmith@example.com";
-    }
 
+        return "https://m.facebook.com/dialog/oauth/?client_id=" + mClientId + "&redirect_uri=" + mRedirectUri + "&response_type=token&scope=publish_stream&display=wap";
+    }
 
 }
