@@ -1,6 +1,7 @@
 package com.example.sociallib.app.sample;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
@@ -52,12 +53,20 @@ public class LoginActivity extends Activity {
 
         @Override
         public void isSucceed(Bundle pUserBundle) {
-            Log.e("ACCESS_TOKEN", pUserBundle.getString(SocialObject.ACCESS_TOKEN));
+//            Log.e("ACCESS_TOKEN", pUserBundle.getString(SocialObject.ACCESS_TOKEN));
+            Intent intent = new Intent();
+            intent.putExtra(SocialObject.ACCESS_TOKEN, pUserBundle.getString(SocialObject.ACCESS_TOKEN));
+            setResult(RESULT_OK, intent);
+            finish();
         }
 
         @Override
         public void isFailed(Bundle pErrorBundle) {
             Log.e("ERROR", pErrorBundle.getString(SocialObject.ERROR_CONST));
+            Intent intent = new Intent();
+            intent.putExtra(SocialObject.ERROR_CONST, pErrorBundle.getString(SocialObject.ERROR_CONST));
+            setResult(RESULT_CANCELED, intent);
+            finish();
 
         }
     }

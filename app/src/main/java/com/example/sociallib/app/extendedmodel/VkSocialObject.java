@@ -22,12 +22,13 @@ public class VkSocialObject extends SocialObject {
             vkBundle.putString(ACCESS_TOKEN, response);
             mSocialCallback.isSucceed(vkBundle);
             return true;
-        } else {
+        } else if (response.contains("error")) {
             Bundle errorBundle = new Bundle();
             errorBundle.putString(ERROR_CONST, response);
             mSocialCallback.isFailed(errorBundle);
             return false;
         }
+        return false;
     }
 
     @Override
