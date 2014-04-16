@@ -24,7 +24,8 @@ public class LoginActivity extends Activity {
         setContentView(R.layout.activity_social_login);
 
         mWebView = (WebView) findViewById(R.id.social_login_web_view);
-
+        mWebView.getSettings().setJavaScriptEnabled(true);
+        mWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
         mWebView.setWebViewClient(new WebViewClientCallback());
         mSocialObject = SocialFactory.getSocialObject((SocialType) getIntent().getExtras().getSerializable(SocialUtils.TYPE), new CallbackReceiver());
         mWebView.loadUrl(mSocialObject.getUrl());
@@ -38,6 +39,7 @@ public class LoginActivity extends Activity {
 
             if (mSocialObject.isParseResponseSuccess(url)){
                 //do smth
+                mSocialObject.getUser();
             }
 
             view.loadUrl(url);
