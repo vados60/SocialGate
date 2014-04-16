@@ -27,12 +27,13 @@ public class FacebookSocialObject extends SocialObject {
             fbBundle.putString(ACCESS_TOKEN, response);
             mSocialCallback.isSucceed(fbBundle);
             return true;
-        } else {
+        } else if (response.contains("error")){
             Bundle errorBundle = new Bundle();
             errorBundle.putString(ERROR_CONST, response);
             mSocialCallback.isFailed(errorBundle);
             return false;
         }
+        return false;
     }
 
     @Override
