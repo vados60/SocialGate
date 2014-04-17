@@ -100,12 +100,16 @@ public class LinkedinSocialObject extends SocialObject {
                     myparser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
                     myparser.setInput(new StringReader(result));
                     socialUser = parseXML(myparser);
-                    Log.e("Linkedin user", "" + socialUser.getName() + " " + socialUser.getSurname() + "  " + socialUser.getEmail());
+//                    Log.e("Linkedin user", "" + socialUser.getName() + " " + socialUser.getSurname() + "  " + socialUser.getEmail());
                 } catch (IOException e) {
                     Log.e("Authorize", "Error Http response " + e.getLocalizedMessage());
                 } catch (XmlPullParserException e) {
                     e.printStackTrace();
                 }
+
+                Bundle linkedInBundle = new Bundle();
+                linkedInBundle.putParcelable(USER_BUNDLE, socialUser);
+                mSocialCallback.isSucceed(linkedInBundle);
             }
         }).start();
         return socialUser;
