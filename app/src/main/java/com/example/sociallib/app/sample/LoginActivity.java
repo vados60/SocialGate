@@ -1,12 +1,15 @@
 package com.example.sociallib.app.sample;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
 
 import com.example.sociallib.app.R;
 import com.example.sociallib.app.extendedmodel.SocialObject;
@@ -19,6 +22,7 @@ public class LoginActivity extends Activity {
     private WebView mWebView;
     private SocialObject mSocialObject;
     private ActionType mActionType;
+    private ProgressDialog mProgressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +37,9 @@ public class LoginActivity extends Activity {
         mActionType = (ActionType) getIntent().getExtras().getSerializable(SocialUtils.ACTION_TYPE);
         mWebView.loadUrl(mSocialObject.getUrl());
 
+        mProgressDialog = new ProgressDialog(this);
+        mProgressDialog.setIndeterminate(true);
+        mProgressDialog.show();
     }
 
     private final class WebViewClientCallback extends WebViewClient {
@@ -51,6 +58,11 @@ public class LoginActivity extends Activity {
 
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
+        }
+
+        public void onPageFinished(WebView view, String url) {
+            // do your stuff here
+            mProgressDialog.dismiss();
         }
     }
 
