@@ -41,7 +41,7 @@ public class InstagramSocialObject extends SocialObject {
             b.putString(ACCESS_TOKEN, result[1]);
             mSocialCallback.isSucceed(b);
             return true;
-        } else if (response.contains("error")) {
+        } else if (response.contains(ERROR_CONST)) {
             Bundle errorBundle = new Bundle();
             errorBundle.putString(ERROR_CONST, response);
             mSocialCallback.isFailed(errorBundle);
@@ -86,9 +86,9 @@ public class InstagramSocialObject extends SocialObject {
                 }
 
                 SocialUser socialUser = new SocialUser(name, surname, email);
-                Bundle fbBundle = new Bundle();
-                fbBundle.putParcelable(USER_BUNDLE, socialUser);
-                mSocialCallback.isSucceed(fbBundle);
+                Bundle instaBundle = new Bundle();
+                instaBundle.putParcelable(USER_BUNDLE, socialUser);
+                mSocialCallback.isSucceed(instaBundle);
             }
         }).start();
     }
