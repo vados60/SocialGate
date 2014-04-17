@@ -40,7 +40,7 @@ public class SocialUser implements Parcelable{
     }
 
     @Override
-    public int describeContents() {
+      public int describeContents() {
         return 0;
     }
 

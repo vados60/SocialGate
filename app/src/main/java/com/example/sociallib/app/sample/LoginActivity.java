@@ -51,7 +51,7 @@ public class LoginActivity extends Activity {
         }
     }
 
-    private final class CallbackReceiver implements SocialObject.SocialCallback{
+    private final class CallbackReceiver implements SocialObject.SocialCallback {
 
         @Override
         public void isSucceed(Bundle pUserBundle) {
@@ -61,6 +61,7 @@ public class LoginActivity extends Activity {
             intent.putExtra(SocialObject.ACCESS_TOKEN, pUserBundle);
             setResult(RESULT_OK, intent);
             finish();
+//            mSocialObject.getUser();
         }
 
         @Override
