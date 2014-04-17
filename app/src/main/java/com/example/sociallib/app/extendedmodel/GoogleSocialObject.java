@@ -20,6 +20,8 @@ public class GoogleSocialObject extends SocialObject {
     private String mClientId;
     private String mRedirectUri;
     private String mToken;
+    private static final String FIRST_NAME = "givenName";
+    private static final String LAST_NAME = "familyName";
 
     /**
      * @param pSocialCallback Callback object. SocialCallback interface should be implemented.
@@ -75,8 +77,8 @@ public class GoogleSocialObject extends SocialObject {
                     String result = EntityUtils.toString(response.getEntity());
                     JSONObject resultJson = new JSONObject(result);
                     Log.d("googleplus", resultJson.toString());
-                    name = resultJson.getJSONObject("name").getString("givenName");
-                    surname = resultJson.getJSONObject("name").getString("familyName");
+                    name = resultJson.getJSONObject("name").getString(FIRST_NAME);
+                    surname = resultJson.getJSONObject("name").getString(LAST_NAME);
                     email = resultJson.getJSONArray("emails").getJSONObject(0).getString("value");
 
                 } catch (IOException e) {
@@ -86,9 +88,9 @@ public class GoogleSocialObject extends SocialObject {
                 }
 
 //                socialUser = new SocialUser(name, surname, email);
-                Bundle fbBundle = new Bundle();
-                fbBundle.putParcelable(USER_BUNDLE, new SocialUser(name, surname, email));
-                mSocialCallback.isSucceed(fbBundle);
+                Bundle googleBundle = new Bundle();
+                googleBundle.putParcelable(USER_BUNDLE, new SocialUser(name, surname, email));
+                mSocialCallback.isSucceed(googleBundle);
             }
         }).start();
 

@@ -87,6 +87,9 @@ public class VkSocialObject extends SocialObject {
                 }
 
                 socialUser = new SocialUser(name, surname, email);
+                Bundle vkBundle = new Bundle();
+                vkBundle.putParcelable(USER_BUNDLE, socialUser);
+                mSocialCallback.isSucceed(vkBundle);
             }
         }).start();
         return socialUser;
