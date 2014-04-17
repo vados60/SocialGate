@@ -22,12 +22,10 @@ public class FacebookSocialObject extends SocialObject {
 
     private static final String FIRST_NAME = "first_name";
     private static final String LAST_NAME = "last_name";
+    private static final String EMAIL = "email";
     private String mClientId;
     private String mRedirectUri;
     private SocialCallback mSocialCallback;
-    private String mToken;
-    private SocialUser socialUser;
-
     /**
      * @param pSocialCallback Callback object. SocialCallback interface should be implemented.
      * @param pClientId    Facebook application ID
@@ -44,11 +42,10 @@ public class FacebookSocialObject extends SocialObject {
     public Boolean isParseResponseSuccess(String response) {
         Log.d("facebook", response);
         if (response.contains(ACCESS_TOKEN) && (!response.contains(ERROR_CONST))) {
-            String [] result = response.split(ACCESS_TOKEN+"=");
-            mToken = result[1];
-            Log.d("facebook", mToken);
+            String [] result = response.split("[=&]+");
+
             Bundle fbBundle = new Bundle();
-            fbBundle.putString(ACCESS_TOKEN, mToken);
+            fbBundle.putString(ACCESS_TOKEN, result[1]);
             mSocialCallback.isSucceed(fbBundle);
             return true;
         } else{
@@ -66,13 +63,13 @@ public class FacebookSocialObject extends SocialObject {
     }
 
     @Override
-    public SocialUser getUser(String pToken) {
+    public void getUser(final String pToken) {
 
         new Thread(new Runnable() {
             @Override
             public void run() {
                 HttpClient httpClient = new DefaultHttpClient();
-                HttpGet httpGet = new HttpGet("https://graph.facebook.com/me?access_token=" + mToken);
+                HttpGet httpGet = new HttpGet("https://graph.facebook.com/me?fields=id,name,first_name,last_name,email&access_token=" + pToken);
 
                 String name = null;
                 String surname = null;
@@ -86,20 +83,20 @@ public class FacebookSocialObject extends SocialObject {
 
                     name = resultJson.getString(FIRST_NAME);
                     surname = resultJson.getString(LAST_NAME);
+                    email = resultJson.getString(EMAIL);
 
                 } catch (IOException e) {
                     Log.e("Authorize", "Error Http response " + e.getLocalizedMessage());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                Log.e("facebook", name + ", " + surname + ", " + email);
 
-                socialUser = new SocialUser(name, surname, email);
+                SocialUser socialUser = new SocialUser(name, surname, email);
                 Bundle fbBundle = new Bundle();
                 fbBundle.putParcelable(USER_BUNDLE, socialUser);
                 mSocialCallback.isSucceed(fbBundle);
             }
         }).start();
-        return socialUser;
     }
-
 }

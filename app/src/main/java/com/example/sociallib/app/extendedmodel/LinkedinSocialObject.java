@@ -44,8 +44,6 @@ public class LinkedinSocialObject extends SocialObject {
     private String mRedirectUri;
     private String mState;
     private String mSecretKey;
-    private SocialUser socialUser;
-    private String accessToken;
 
     public LinkedinSocialObject(SocialCallback pSocialCallback, String pApiKey, String pRedirectUri, String pState, String pSecretKey) {
         mApiKey = pApiKey;
@@ -83,13 +81,15 @@ public class LinkedinSocialObject extends SocialObject {
     }
 
     @Override
-    public SocialUser getUser(String pToken) {
+    public void getUser(final String pToken) {
         
         new Thread(new Runnable() {
             @Override
             public void run() {
+
+                SocialUser socialUser = null;
                 HttpClient httpClient = new DefaultHttpClient();
-                HttpGet httpGet = new HttpGet("https://api.linkedin.com/v1/people/~:(id,first-name,last-name,email-address)?oauth2_access_token=" + accessToken);
+                HttpGet httpGet = new HttpGet("https://api.linkedin.com/v1/people/~:(id,first-name,last-name,email-address)?oauth2_access_token=" + pToken);
 
                 try {
                     HttpResponse response = httpClient.execute(httpGet);
@@ -99,6 +99,7 @@ public class LinkedinSocialObject extends SocialObject {
 
                     myparser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
                     myparser.setInput(new StringReader(result));
+
                     socialUser = parseXML(myparser);
                     Log.e("Linkedin user", "" + socialUser.getName() + " " + socialUser.getSurname() + "  " + socialUser.getEmail());
                 } catch (IOException e) {
@@ -106,9 +107,12 @@ public class LinkedinSocialObject extends SocialObject {
                 } catch (XmlPullParserException e) {
                     e.printStackTrace();
                 }
+
+                Bundle fbBundle = new Bundle();
+                fbBundle.putParcelable(USER_BUNDLE, socialUser);
+                mSocialCallback.isSucceed(fbBundle);
             }
         }).start();
-        return socialUser;
     }
 
     private void executePostRequest(final String pUrl) {
@@ -124,7 +128,7 @@ public class LinkedinSocialObject extends SocialObject {
                         if (response.getStatusLine().getStatusCode() == 200) {
                             String result = EntityUtils.toString(response.getEntity());
                             JSONObject resultJson = new JSONObject(result);
-                            accessToken = resultJson.has(ACCESS_TOKEN) ? resultJson.getString(ACCESS_TOKEN) : null;
+                            String accessToken = resultJson.has(ACCESS_TOKEN) ? resultJson.getString(ACCESS_TOKEN) : null;
                             Bundle linkedInBundle = new Bundle();
                             linkedInBundle.putString(ACCESS_TOKEN, accessToken);
                             mSocialCallback.isSucceed(linkedInBundle);

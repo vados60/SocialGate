@@ -17,11 +17,13 @@ import java.io.IOException;
 
 public class GoogleSocialObject extends SocialObject {
 
+    private static final String NAME = "name";
+    private static final String FAMILY_NAME = "familyName";
+    private static final String GIVEN_NAME = "givenName";
+    private static final String EMAILS = "emails";
+    private static final String VALUE = "value";
     private String mClientId;
     private String mRedirectUri;
-    private String mToken;
-    private static final String FIRST_NAME = "givenName";
-    private static final String LAST_NAME = "familyName";
 
     /**
      * @param pSocialCallback Callback object. SocialCallback interface should be implemented.
@@ -40,9 +42,9 @@ public class GoogleSocialObject extends SocialObject {
 
         if (response.contains(ACCESS_TOKEN) && (!response.contains(ERROR_CONST))) {
             String [] result = response.split("[=&]+");
-            mToken = result[1];
+
             Bundle googleBundle = new Bundle();
-            googleBundle.putString(ACCESS_TOKEN, mToken);
+            googleBundle.putString(ACCESS_TOKEN, result[1]);
             mSocialCallback.isSucceed(googleBundle);
             return true;
         } else if (response.contains(ERROR_CONST)) {
@@ -60,13 +62,13 @@ public class GoogleSocialObject extends SocialObject {
     }
 
     @Override
-    public SocialUser getUser(String pToken) {
+    public void getUser(final String pToken) {
 
         new Thread(new Runnable() {
             @Override
             public void run() {
                 HttpClient httpClient = new DefaultHttpClient();
-                HttpGet httpGet = new HttpGet("https://www.googleapis.com/plus/v1/people/me?access_token=" + mToken);
+                HttpGet httpGet = new HttpGet("https://www.googleapis.com/plus/v1/people/me?access_token=" + pToken);
 
                 String name = null;
                 String surname = null;
@@ -77,9 +79,9 @@ public class GoogleSocialObject extends SocialObject {
                     String result = EntityUtils.toString(response.getEntity());
                     JSONObject resultJson = new JSONObject(result);
                     Log.d("googleplus", resultJson.toString());
-                    name = resultJson.getJSONObject("name").getString(FIRST_NAME);
-                    surname = resultJson.getJSONObject("name").getString(LAST_NAME);
-                    email = resultJson.getJSONArray("emails").getJSONObject(0).getString("value");
+                    name = resultJson.getJSONObject(NAME).getString(GIVEN_NAME);
+                    surname = resultJson.getJSONObject(NAME).getString(FAMILY_NAME);
+                    email = resultJson.getJSONArray(EMAILS).getJSONObject(0).getString(VALUE);
 
                 } catch (IOException e) {
                     Log.e("Authorize", "Error Http response " + e.getLocalizedMessage());
@@ -87,15 +89,15 @@ public class GoogleSocialObject extends SocialObject {
                     e.printStackTrace();
                 }
 
-//                socialUser = new SocialUser(name, surname, email);
+                Log.e("googleplus", name + ", " + surname + ", " + email);
+
+                SocialUser socialUser = new SocialUser(name, surname, email);
+
                 Bundle googleBundle = new Bundle();
-                googleBundle.putParcelable(USER_BUNDLE, new SocialUser(name, surname, email));
+                googleBundle.putParcelable(USER_BUNDLE, socialUser);
                 mSocialCallback.isSucceed(googleBundle);
             }
         }).start();
 
-        return null;
     }
-
-
 }

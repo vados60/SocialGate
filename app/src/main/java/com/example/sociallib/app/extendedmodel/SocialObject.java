@@ -27,7 +27,7 @@ public abstract class SocialObject {
      */
     public abstract String getUrl();
 
-    public abstract SocialUser getUser(String pToken);
+    public abstract void getUser(String pToken);
 
     public interface SocialCallback {
         void isSucceed(Bundle pUserBundle);

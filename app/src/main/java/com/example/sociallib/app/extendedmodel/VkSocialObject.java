@@ -22,8 +22,6 @@ public class VkSocialObject extends SocialObject {
     private String mClientId;
     private String mRedirectUri;
     private String mScope;
-    private String mToken;
-    private SocialUser socialUser;
     private static final String FIRST_NAME = "first_name";
     private static final String LAST_NAME = "last_name";
 
@@ -38,10 +36,9 @@ public class VkSocialObject extends SocialObject {
     public Boolean isParseResponseSuccess(String response) {
         if (response.contains(ACCESS_TOKEN) && (!response.contains(ERROR_CONST))) {
             String[] result = response.split(ACCESS_TOKEN + "=");
-            mToken = result[1];
-            Log.d("VK", mToken);
+
             Bundle vkBundle = new Bundle();
-            vkBundle.putString(ACCESS_TOKEN, mToken);
+            vkBundle.putString(ACCESS_TOKEN, result[1]);
             mSocialCallback.isSucceed(vkBundle);
             return true;
         } else if (response.contains("error")) {
@@ -59,12 +56,12 @@ public class VkSocialObject extends SocialObject {
     }
 
     @Override
-    public SocialUser getUser(String pToken) {
+    public void getUser(final String pToken) {
         new Thread(new Runnable() {
             @Override
             public void run() {
                 HttpClient httpClient = new DefaultHttpClient();
-                HttpGet httpGet = new HttpGet("https://api.vkontakte.ru/method/getProfiles?uid=me&access_token=" + mToken);
+                HttpGet httpGet = new HttpGet("https://api.vkontakte.ru/method/getProfiles?uid=me&access_token=" + pToken);
 
                 String name = null;
                 String surname = null;
@@ -86,13 +83,12 @@ public class VkSocialObject extends SocialObject {
                     e.printStackTrace();
                 }
 
-                socialUser = new SocialUser(name, surname, email);
+                SocialUser socialUser = new SocialUser(name, surname, email);
                 Bundle vkBundle = new Bundle();
                 vkBundle.putParcelable(USER_BUNDLE, socialUser);
                 mSocialCallback.isSucceed(vkBundle);
             }
         }).start();
-        return socialUser;
     }
 
 }

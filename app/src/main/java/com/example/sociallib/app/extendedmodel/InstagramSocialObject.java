@@ -1,10 +1,22 @@
 package com.example.sociallib.app.extendedmodel;
 
 import android.os.Bundle;
+import android.util.Log;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 
 
 public class InstagramSocialObject extends SocialObject {
 
+    private static final String DATA = "data";
+    private static final String FULL_NAME = "full_name";
     private String mClientId;
     private String mRedirectUri;
 
@@ -22,8 +34,11 @@ public class InstagramSocialObject extends SocialObject {
     @Override
     public Boolean isParseResponseSuccess(String response) {
         if (response.contains(ACCESS_TOKEN) && (!response.contains(ERROR_CONST))) {
+
+            String [] result = response.split(ACCESS_TOKEN+"=");
+
             Bundle b = new Bundle();
-            b.putString(ACCESS_TOKEN, response);
+            b.putString(ACCESS_TOKEN, result[1]);
             mSocialCallback.isSucceed(b);
             return true;
         } else if (response.contains("error")) {
@@ -41,8 +56,41 @@ public class InstagramSocialObject extends SocialObject {
     }
 
     @Override
-    public SocialUser getUser(String pToken) {
-        return null;
+    public void getUser(final String pToken) {
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                HttpClient httpClient = new DefaultHttpClient();
+                HttpGet httpGet = new HttpGet("https://api.instagram.com/v1/users/self/?access_token=" + pToken);
+
+                String name = null;
+                String surname = null;
+                String email = null;
+
+                try {
+                    HttpResponse response = httpClient.execute(httpGet);
+                    String result = EntityUtils.toString(response.getEntity());
+                    JSONObject resultJson = new JSONObject(result);
+                    Log.d("instagram", resultJson.toString());
+
+                    JSONObject data = resultJson.getJSONObject(DATA);
+                    String fullName = data.getString(FULL_NAME);
+                    name = fullName.substring(0, fullName.indexOf(" "));
+                    surname = fullName.substring(fullName.indexOf(" ") + 1);
+
+                } catch (IOException e) {
+                    Log.e("Authorize", "Error Http response " + e.getLocalizedMessage());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                SocialUser socialUser = new SocialUser(name, surname, email);
+                Bundle fbBundle = new Bundle();
+                fbBundle.putParcelable(USER_BUNDLE, socialUser);
+                mSocialCallback.isSucceed(fbBundle);
+            }
+        }).start();
     }
 
 }

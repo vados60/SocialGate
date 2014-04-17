@@ -16,7 +16,6 @@ public class MainActivity extends Activity {
     private final int LOGIN_ACTIVITY_KEY = 1;
     ActionType actionType = null;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
