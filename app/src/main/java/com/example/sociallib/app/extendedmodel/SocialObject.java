@@ -6,6 +6,7 @@ import android.os.Bundle;
 public abstract class SocialObject {
 
     public static final String ACCESS_TOKEN = "access_token";
+    public static final String USER_BUNDLE = "user_bundle";
     public static final String ERROR_CONST = "error";
 
     protected SocialCallback mSocialCallback;
@@ -26,7 +27,7 @@ public abstract class SocialObject {
      */
     public abstract String getUrl();
 
-    public abstract SocialUser getUser();
+    public abstract SocialUser getUser(String pToken);
 
     public interface SocialCallback {
         void isSucceed(Bundle pUserBundle);

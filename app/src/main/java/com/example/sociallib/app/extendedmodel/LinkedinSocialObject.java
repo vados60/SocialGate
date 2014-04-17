@@ -83,7 +83,8 @@ public class LinkedinSocialObject extends SocialObject {
     }
 
     @Override
-    public SocialUser getUser() {
+    public SocialUser getUser(String pToken) {
+        
         new Thread(new Runnable() {
             @Override
             public void run() {

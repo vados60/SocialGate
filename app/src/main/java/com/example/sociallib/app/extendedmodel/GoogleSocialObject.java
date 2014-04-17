@@ -58,7 +58,7 @@ public class GoogleSocialObject extends SocialObject {
     }
 
     @Override
-    public SocialUser getUser() {
+    public SocialUser getUser(String pToken) {
 
         new Thread(new Runnable() {
             @Override
@@ -75,6 +75,9 @@ public class GoogleSocialObject extends SocialObject {
                     String result = EntityUtils.toString(response.getEntity());
                     JSONObject resultJson = new JSONObject(result);
                     Log.d("googleplus", resultJson.toString());
+                    name = resultJson.getJSONObject("name").getString("givenName");
+                    surname = resultJson.getJSONObject("name").getString("familyName");
+                    email = resultJson.getJSONArray("emails").getJSONObject(0).getString("value");
 
                 } catch (IOException e) {
                     Log.e("Authorize", "Error Http response " + e.getLocalizedMessage());
@@ -82,7 +85,10 @@ public class GoogleSocialObject extends SocialObject {
                     e.printStackTrace();
                 }
 
-                //socialUser = new SocialUser(name, surname, email);
+//                socialUser = new SocialUser(name, surname, email);
+                Bundle fbBundle = new Bundle();
+                fbBundle.putParcelable(USER_BUNDLE, new SocialUser(name, surname, email));
+                mSocialCallback.isSucceed(fbBundle);
             }
         }).start();
 

@@ -10,6 +10,7 @@ import android.webkit.WebViewClient;
 
 import com.example.sociallib.app.R;
 import com.example.sociallib.app.extendedmodel.SocialObject;
+import com.example.sociallib.app.extendedmodel.SocialUser;
 
 
 public class LoginActivity extends Activity {
@@ -17,6 +18,7 @@ public class LoginActivity extends Activity {
 
     private WebView mWebView;
     private SocialObject mSocialObject;
+    private ActionType mActionType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +29,8 @@ public class LoginActivity extends Activity {
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
         mWebView.setWebViewClient(new WebViewClientCallback());
-        mSocialObject = SocialFactory.getSocialObject((SocialType) getIntent().getExtras().getSerializable(SocialUtils.TYPE), new CallbackReceiver());
+        mSocialObject = SocialFactory.getSocialObject((SocialType) getIntent().getExtras().getSerializable(SocialUtils.SOCIAL_TYPE), new CallbackReceiver());
+        mActionType = (ActionType) getIntent().getExtras().getSerializable(SocialUtils.ACTION_TYPE);
         mWebView.loadUrl(mSocialObject.getUrl());
 
     }
@@ -37,9 +40,9 @@ public class LoginActivity extends Activity {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
 
-            if (mSocialObject.isParseResponseSuccess(url)){
+            if (mSocialObject.isParseResponseSuccess(url)) {
                 //do smth
-                mSocialObject.getUser();
+//                mSocialObject.getUser();
             }
 
             view.loadUrl(url);
@@ -58,10 +61,14 @@ public class LoginActivity extends Activity {
 //            Log.e("ACCESS_TOKEN", pUserBundle.getString(SocialObject.ACCESS_TOKEN));
 
             Intent intent = new Intent();
-            intent.putExtra(SocialObject.ACCESS_TOKEN, pUserBundle);
-            setResult(RESULT_OK, intent);
-            finish();
-//            mSocialObject.getUser();
+            if (mActionType == ActionType.USER_TOKEN) {
+                mActionType = ActionType.TOKEN;
+                mSocialObject.getUser(pUserBundle.getString(SocialObject.ACCESS_TOKEN));
+            } else {
+                intent.putExtra(SocialObject.USER_BUNDLE, pUserBundle);
+                setResult(RESULT_OK, intent);
+                finish();
+            }
         }
 
         @Override

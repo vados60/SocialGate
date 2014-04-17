@@ -37,7 +37,7 @@ public class VkSocialObject extends SocialObject {
     }
 
     @Override
-    public SocialUser getUser() {
+    public SocialUser getUser(String pToken) {
         return null;
     }
 

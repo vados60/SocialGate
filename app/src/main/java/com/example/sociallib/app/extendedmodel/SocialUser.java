@@ -9,6 +9,8 @@ public class SocialUser implements Parcelable{
     private String surname;
     private String email;
 
+    public SocialUser(){}
+
     public SocialUser(String name, String surname, String email) {
         this.name = name;
         this.surname = surname;

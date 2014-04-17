@@ -51,23 +51,22 @@ public class FacebookSocialObject extends SocialObject {
             fbBundle.putString(ACCESS_TOKEN, mToken);
             mSocialCallback.isSucceed(fbBundle);
             return true;
-        } else if (response.contains("error")){
+        } else{
             Bundle errorBundle = new Bundle();
             errorBundle.putString(ERROR_CONST, response);
-            mSocialCallback.isFailed(errorBundle);
+//            mSocialCallback.isFailed(errorBundle);
             return false;
         }
-        return false;
     }
 
     @Override
     public String getUrl() {
 
-        return "https://m.facebook.com/dialog/oauth/?client_id=" + mClientId + "&redirect_uri=" + mRedirectUri + "&response_type=token&scope=publish_stream&display=wap";
+        return "https://m.facebook.com/dialog/oauth/?client_id=" + mClientId + "&redirect_uri=" + mRedirectUri + "&response_type=token&scope=email&display=wap";
     }
 
     @Override
-    public SocialUser getUser() {
+    public SocialUser getUser(String pToken) {
 
         new Thread(new Runnable() {
             @Override
@@ -95,6 +94,9 @@ public class FacebookSocialObject extends SocialObject {
                 }
 
                 socialUser = new SocialUser(name, surname, email);
+                Bundle fbBundle = new Bundle();
+                fbBundle.putParcelable(USER_BUNDLE, socialUser);
+                mSocialCallback.isSucceed(fbBundle);
             }
         }).start();
         return socialUser;
