@@ -61,7 +61,7 @@ public class LoginActivity extends Activity {
             intent.putExtra(SocialObject.ACCESS_TOKEN, pUserBundle);
             setResult(RESULT_OK, intent);
             finish();
-//            mSocialObject.getUser();
+            mSocialObject.getUser();
         }
 
         @Override
