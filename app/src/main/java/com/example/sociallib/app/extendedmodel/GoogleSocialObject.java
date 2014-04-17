@@ -41,8 +41,6 @@ public class GoogleSocialObject extends SocialObject {
             mToken = result[1];
             Bundle googleBundle = new Bundle();
             googleBundle.putString(ACCESS_TOKEN, mToken);
-            mToken = response;
-
             mSocialCallback.isSucceed(googleBundle);
             return true;
         } else if (response.contains(ERROR_CONST)) {

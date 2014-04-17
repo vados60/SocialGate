@@ -56,6 +56,7 @@ public class LoginActivity extends Activity {
         @Override
         public void isSucceed(Bundle pUserBundle) {
 //            Log.e("ACCESS_TOKEN", pUserBundle.getString(SocialObject.ACCESS_TOKEN));
+
             Intent intent = new Intent();
             intent.putExtra(SocialObject.ACCESS_TOKEN, pUserBundle);
             setResult(RESULT_OK, intent);
