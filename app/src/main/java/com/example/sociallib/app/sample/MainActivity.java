@@ -32,12 +32,15 @@ public class MainActivity extends Activity {
         findViewById(R.id.pre_login_activity_layout_instagram_button_token).setOnClickListener(listener);
         findViewById(R.id.pre_login_activity_layout_vk_button_token).setOnClickListener(listener);
         findViewById(R.id.pre_login_activity_layout_google_plus_button_token).setOnClickListener(listener);
+        findViewById(R.id.pre_login_activity_layout_odnoklassniki_button_token).setOnClickListener(listener);
 
         findViewById(R.id.pre_login_activity_layout_facebook_button_token_user).setOnClickListener(listener);
         findViewById(R.id.pre_login_activity_layout_linkedin_button_token_user).setOnClickListener(listener);
         findViewById(R.id.pre_login_activity_layout_instagram_button_token_user).setOnClickListener(listener);
         findViewById(R.id.pre_login_activity_layout_vk_button_token_user).setOnClickListener(listener);
         findViewById(R.id.pre_login_activity_layout_google_plus_button_token_user).setOnClickListener(listener);
+        findViewById(R.id.pre_login_activity_layout_google_plus_button_token_user).setOnClickListener(listener);
+        findViewById(R.id.pre_login_activity_layout_odnoklassniki_button_token_user).setOnClickListener(listener);
     }
 
     @Override
@@ -89,6 +92,11 @@ public class MainActivity extends Activity {
 
                 case R.id.pre_login_activity_layout_google_plus_button_token:
                     socialType = SocialType.GOOGLE_PLUS;
+                    actionType = ActionType.TOKEN;
+                    break;
+
+                case R.id.pre_login_activity_layout_odnoklassniki_button_token:
+                    socialType = SocialType.ODNOKLASSNIKI;
                     actionType = ActionType.TOKEN;
                     break;
 

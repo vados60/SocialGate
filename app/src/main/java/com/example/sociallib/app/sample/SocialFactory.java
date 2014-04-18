@@ -4,6 +4,7 @@ import com.example.sociallib.app.extendedmodel.FacebookSocialObject;
 import com.example.sociallib.app.extendedmodel.GoogleSocialObject;
 import com.example.sociallib.app.extendedmodel.InstagramSocialObject;
 import com.example.sociallib.app.extendedmodel.LinkedinSocialObject;
+import com.example.sociallib.app.extendedmodel.OdnoklassnikiSocialObject;
 import com.example.sociallib.app.extendedmodel.SocialObject;
 import com.example.sociallib.app.extendedmodel.VkSocialObject;
 
@@ -35,6 +36,9 @@ public class SocialFactory {
 
             case GOOGLE_PLUS:
                 return new GoogleSocialObject(pSocialCallback, "1033746217948-p5jn9kgocbbd09c5h7e76tb9152ak5jl.apps.googleusercontent.com", "https://www.example.com/oauth2callback");
+
+            case ODNOKLASSNIKI:
+                return new OdnoklassnikiSocialObject(pSocialCallback,"1086267136","http://null.com","SET_STATUS,PHOTO_CONTENT");
         }
 
         return null;
