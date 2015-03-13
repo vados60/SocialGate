@@ -27,8 +27,8 @@ public class GoogleSocialObject extends SocialObject {
 
     /**
      * @param pSocialCallback Callback object. SocialCallback interface should be implemented.
-     * @param pClientId    Google application ID
-     * @param pRedirectUri Redirect URL
+     * @param pClientId       Google application ID
+     * @param pRedirectUri    Redirect URL
      */
 
     public GoogleSocialObject(SocialCallback pSocialCallback, String pClientId, String pRedirectUri) {
@@ -41,7 +41,7 @@ public class GoogleSocialObject extends SocialObject {
     public Boolean isParseResponseSuccess(String response) {
 
         if (response.contains(ACCESS_TOKEN) && (!response.contains(ERROR_CONST))) {
-            String [] result = response.split("[=&]+");
+            String[] result = response.split("[=&]+");
 
             Bundle googleBundle = new Bundle();
             googleBundle.putString(ACCESS_TOKEN, result[1]);

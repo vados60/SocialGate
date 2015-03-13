@@ -4,8 +4,6 @@ import android.net.ParseException;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.Xml;
-
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -15,23 +13,12 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.StringReader;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 
 public class LinkedinSocialObject extends SocialObject {
 
@@ -82,7 +69,7 @@ public class LinkedinSocialObject extends SocialObject {
 
     @Override
     public void getUser(final String pToken) {
-        
+
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -101,7 +88,6 @@ public class LinkedinSocialObject extends SocialObject {
                     myparser.setInput(new StringReader(result));
 
                     socialUser = parseXML(myparser);
-//                    Log.e("Linkedin user", "" + socialUser.getName() + " " + socialUser.getSurname() + "  " + socialUser.getEmail());
                 } catch (IOException e) {
                     Log.e("Authorize", "Error Http response " + e.getLocalizedMessage());
                 } catch (XmlPullParserException e) {

@@ -1,9 +1,6 @@
 package com.example.sociallib.app.extendedmodel;
 
 import android.os.Bundle;
-
-import org.apache.http.client.HttpClient;
-import org.apache.http.impl.client.DefaultHttpClient;
 import android.util.Log;
 
 import org.apache.http.HttpResponse;

@@ -4,12 +4,13 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
 
-public class SocialUser implements Parcelable{
+public class SocialUser implements Parcelable {
     private String name;
     private String surname;
     private String email;
 
-    public SocialUser(){}
+    public SocialUser() {
+    }
 
     public SocialUser(String name, String surname, String email) {
         this.name = name;
@@ -42,13 +43,13 @@ public class SocialUser implements Parcelable{
     }
 
     @Override
-      public int describeContents() {
+    public int describeContents() {
         return 0;
     }
 
     @Override
     public void writeToParcel(Parcel parcel, int flags) {
-        parcel.writeStringArray(new String[] { name, surname, email });
+        parcel.writeStringArray(new String[]{name, surname, email});
     }
 
     public static final Parcelable.Creator<SocialUser> CREATOR = new Parcelable.Creator<SocialUser>() {

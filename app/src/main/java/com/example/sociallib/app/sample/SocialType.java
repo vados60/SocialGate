@@ -6,6 +6,5 @@ public enum SocialType {
     FACEBOOK,
     GOOGLE_PLUS,
     INSTAGRAM,
-    LINKEDIN,
-    ODNOKLASSNIKI
+    LINKEDIN
 }

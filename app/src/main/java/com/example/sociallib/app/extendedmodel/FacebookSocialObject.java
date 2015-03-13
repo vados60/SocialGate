@@ -1,7 +1,6 @@
 package com.example.sociallib.app.extendedmodel;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 
 import org.apache.http.HttpResponse;
@@ -12,10 +11,7 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 
 
 public class FacebookSocialObject extends SocialObject {
@@ -26,10 +22,11 @@ public class FacebookSocialObject extends SocialObject {
     private String mClientId;
     private String mRedirectUri;
     private SocialCallback mSocialCallback;
+
     /**
      * @param pSocialCallback Callback object. SocialCallback interface should be implemented.
-     * @param pClientId    Facebook application ID
-     * @param pRedirectUri Redirect URL
+     * @param pClientId       Facebook application ID
+     * @param pRedirectUri    Redirect URL
      */
     public FacebookSocialObject(SocialCallback pSocialCallback, String pClientId, String pRedirectUri) {
         mSocialCallback = pSocialCallback;
@@ -42,16 +39,15 @@ public class FacebookSocialObject extends SocialObject {
     public Boolean isParseResponseSuccess(String response) {
         Log.d("facebook", response);
         if (response.contains(ACCESS_TOKEN) && (!response.contains(ERROR_CONST))) {
-            String [] result = response.split("[=&]+");
+            String[] result = response.split("[=&]+");
 
             Bundle fbBundle = new Bundle();
             fbBundle.putString(ACCESS_TOKEN, result[1]);
             mSocialCallback.isSucceed(fbBundle);
             return true;
-        } else{
+        } else {
             Bundle errorBundle = new Bundle();
             errorBundle.putString(ERROR_CONST, response);
-//            mSocialCallback.isFailed(errorBundle);
             return false;
         }
     }

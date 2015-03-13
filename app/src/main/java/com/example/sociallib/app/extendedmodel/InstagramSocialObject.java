@@ -2,6 +2,7 @@ package com.example.sociallib.app.extendedmodel;
 
 import android.os.Bundle;
 import android.util.Log;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -22,8 +23,8 @@ public class InstagramSocialObject extends SocialObject {
 
     /**
      * @param pSocialCallback Callback object. SocialCallback interface should be implemented.
-     * @param pClientId    Instagram application ID
-     * @param pRedirectUri Redirect URL
+     * @param pClientId       Instagram application ID
+     * @param pRedirectUri    Redirect URL
      */
     public InstagramSocialObject(SocialCallback pSocialCallback, String pClientId, String pRedirectUri) {
         mClientId = pClientId;
@@ -35,7 +36,7 @@ public class InstagramSocialObject extends SocialObject {
     public Boolean isParseResponseSuccess(String response) {
         if (response.contains(ACCESS_TOKEN) && (!response.contains(ERROR_CONST))) {
 
-            String [] result = response.split(ACCESS_TOKEN+"=");
+            String[] result = response.split(ACCESS_TOKEN + "=");
 
             Bundle b = new Bundle();
             b.putString(ACCESS_TOKEN, result[1]);

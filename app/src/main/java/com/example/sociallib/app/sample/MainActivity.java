@@ -59,11 +59,9 @@ public class MainActivity extends Activity {
             if (actionType == ActionType.TOKEN) {
                 builder.setTitle("Access token:");
                 builder.setMessage(data.getExtras().getBundle(SocialObject.USER_BUNDLE).getString(SocialObject.ACCESS_TOKEN));
-//                Log.e(SocialObject.ACCESS_TOKEN, data.getExtras().getBundle(SocialObject.USER_BUNDLE).getString(SocialObject.ACCESS_TOKEN));
             } else {
                 Bundle b = data.getParcelableExtra(SocialObject.USER_BUNDLE);
                 SocialUser mSocialUser = (SocialUser) b.getParcelable(SocialObject.USER_BUNDLE);
-//                Log.e(SocialObject.USER_BUNDLE, mSocialUser.getName());
                 builder.setTitle("Your user name:");
                 builder.setMessage(mSocialUser.getName());
             }

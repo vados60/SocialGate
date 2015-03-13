@@ -6,14 +6,11 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.ProgressBar;
 
 import com.example.sociallib.app.R;
 import com.example.sociallib.app.extendedmodel.SocialObject;
-import com.example.sociallib.app.extendedmodel.SocialUser;
 
 
 public class LoginActivity extends Activity {
@@ -89,7 +86,6 @@ public class LoginActivity extends Activity {
             intent.putExtra(SocialObject.ERROR_CONST, pErrorBundle);
             setResult(RESULT_CANCELED, intent);
             finish();
-
         }
     }
 }
