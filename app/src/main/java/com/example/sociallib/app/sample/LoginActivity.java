@@ -70,7 +70,6 @@ public class LoginActivity extends Activity {
 
         @Override
         public void isSucceed(Bundle pUserBundle) {
-            //Log.e("ACCESS_TOKEN", pUserBundle.getString(SocialObject.ACCESS_TOKEN));
 
             Intent intent = new Intent();
             if (mActionType == ActionType.USER_TOKEN) {

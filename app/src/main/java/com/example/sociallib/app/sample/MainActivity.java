@@ -1,6 +1,8 @@
 package com.example.sociallib.app.sample;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -32,15 +34,12 @@ public class MainActivity extends Activity {
         findViewById(R.id.pre_login_activity_layout_instagram_button_token).setOnClickListener(listener);
         findViewById(R.id.pre_login_activity_layout_vk_button_token).setOnClickListener(listener);
         findViewById(R.id.pre_login_activity_layout_google_plus_button_token).setOnClickListener(listener);
-        findViewById(R.id.pre_login_activity_layout_odnoklassniki_button_token).setOnClickListener(listener);
 
         findViewById(R.id.pre_login_activity_layout_facebook_button_token_user).setOnClickListener(listener);
         findViewById(R.id.pre_login_activity_layout_linkedin_button_token_user).setOnClickListener(listener);
         findViewById(R.id.pre_login_activity_layout_instagram_button_token_user).setOnClickListener(listener);
         findViewById(R.id.pre_login_activity_layout_vk_button_token_user).setOnClickListener(listener);
         findViewById(R.id.pre_login_activity_layout_google_plus_button_token_user).setOnClickListener(listener);
-        findViewById(R.id.pre_login_activity_layout_google_plus_button_token_user).setOnClickListener(listener);
-        findViewById(R.id.pre_login_activity_layout_odnoklassniki_button_token_user).setOnClickListener(listener);
     }
 
     @Override
@@ -50,13 +49,26 @@ public class MainActivity extends Activity {
         }
 
         if (resultCode == RESULT_OK) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setPositiveButton("Ok!", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                }
+            });
             if (actionType == ActionType.TOKEN) {
-                Log.e(SocialObject.ACCESS_TOKEN, data.getExtras().getBundle(SocialObject.USER_BUNDLE).getString(SocialObject.ACCESS_TOKEN));
+                builder.setTitle("Access token:");
+                builder.setMessage(data.getExtras().getBundle(SocialObject.USER_BUNDLE).getString(SocialObject.ACCESS_TOKEN));
+//                Log.e(SocialObject.ACCESS_TOKEN, data.getExtras().getBundle(SocialObject.USER_BUNDLE).getString(SocialObject.ACCESS_TOKEN));
             } else {
                 Bundle b = data.getParcelableExtra(SocialObject.USER_BUNDLE);
                 SocialUser mSocialUser = (SocialUser) b.getParcelable(SocialObject.USER_BUNDLE);
-                Log.e(SocialObject.USER_BUNDLE,mSocialUser.getName());
+//                Log.e(SocialObject.USER_BUNDLE, mSocialUser.getName());
+                builder.setTitle("Your user name:");
+                builder.setMessage(mSocialUser.getName());
             }
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
         } else {
             Log.e(SocialObject.ERROR_CONST, data.getExtras().getBundle(SocialObject.ERROR_CONST).getString(SocialObject.ERROR_CONST));
         }
@@ -95,11 +107,6 @@ public class MainActivity extends Activity {
                     actionType = ActionType.TOKEN;
                     break;
 
-                case R.id.pre_login_activity_layout_odnoklassniki_button_token:
-                    socialType = SocialType.ODNOKLASSNIKI;
-                    actionType = ActionType.TOKEN;
-                    break;
-
                 case R.id.pre_login_activity_layout_facebook_button_token_user:
                     socialType = SocialType.FACEBOOK;
                     actionType = ActionType.USER_TOKEN;
@@ -126,7 +133,7 @@ public class MainActivity extends Activity {
                     break;
 
             }
-            Intent intent = SocialUtils.loginSocial(getApplicationContext(), socialType, actionType);
+            Intent intent = SocialUtils.loginSocial(MainActivity.this, socialType, actionType);
             startActivityForResult(intent, LOGIN_ACTIVITY_KEY);
         }
     }

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+
     android:id="@+id/pre_login_activity_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/login_bg" >
+    android:background="@drawable/login_bg">
 
     <LinearLayout
         android:id="@+id/pre_login_activity_rel_layout"
@@ -19,7 +20,7 @@
 
         <LinearLayout
             android:id="@+id/pre_login_activity_layout_social_btn"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:gravity="center"
@@ -30,43 +31,44 @@
                 android:id="@+id/pre_login_activity_layout_facebook_button_token"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/facebook_login_bt"
                 android:layout_weight="1"
-                />
+                android:background="@drawable/facebook_login_bt" />
+
             <Button
                 android:id="@+id/pre_login_activity_layout_facebook_button_token_user"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/facebook_login_bt"
                 android:layout_weight="1"
-                />
+                android:background="@drawable/facebook_login_bt" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:weightSum="2">
+
             <Button
                 android:id="@+id/pre_login_activity_layout_linkedin_button_token"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/linkedin_login_bt"
                 android:layout_margin="2dp"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:background="@drawable/linkedin_login_bt" />
+
             <Button
                 android:id="@+id/pre_login_activity_layout_linkedin_button_token_user"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/linkedin_login_bt"
                 android:layout_margin="2dp"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:background="@drawable/linkedin_login_bt" />
 
-            </LinearLayout>
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/pre_login_activity_layout_social_btn_2"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="horizontal"
@@ -77,38 +79,41 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="2dp"
-                android:background="@drawable/instagram_login_bt"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:background="@drawable/instagram_login_bt" />
+
             <Button
                 android:id="@+id/pre_login_activity_layout_instagram_button_token_user"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="2dp"
-                android:background="@drawable/instagram_login_bt"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:background="@drawable/instagram_login_bt" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:weightSum="2">
+
             <Button
                 android:id="@+id/pre_login_activity_layout_vk_button_token"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="2dp"
-                android:background="@drawable/vk_login_bt"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:background="@drawable/vk_login_bt" />
+
             <Button
                 android:id="@+id/pre_login_activity_layout_vk_button_token_user"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="2dp"
-                android:background="@drawable/vk_login_bt"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:background="@drawable/vk_login_bt" />
 
-            </LinearLayout>
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/pre_login_activity_layout_social_btn_3"
@@ -123,42 +128,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
-                android:background="@drawable/google_login_bt"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:background="@drawable/google_login_bt" />
+
             <Button
                 android:id="@+id/pre_login_activity_layout_google_plus_button_token_user"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
-                android:background="@drawable/google_login_bt"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:background="@drawable/google_login_bt" />
 
         </LinearLayout>
-        <LinearLayout
-            android:id="@+id/pre_login_activity_layout_social_btn_4"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:weightSum="2">
-
-            <Button
-                android:id="@+id/pre_login_activity_layout_odnoklassniki_button_token"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
-                android:background="@drawable/google_login_bt"
-                android:layout_weight="1"/>
-            <Button
-                android:id="@+id/pre_login_activity_layout_odnoklassniki_button_token_user"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
-                android:background="@drawable/google_login_bt"
-                android:layout_weight="1"/>
-
-        </LinearLayout>
-
 
     </LinearLayout>
 
